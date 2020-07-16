@@ -12,7 +12,7 @@ Type the following :
 <code>sudo</code> cd Downloads && tar -xvf mfcubuntudatabackup.tar && cd mfcubuntudatabackup && ./install.sh
 
 
-NOTE :  Enter the system password where requested. This is to allow access to the 
+NOTE :  Enter the system password when requested. This is to allow access to the 
         thumbnail (icons) directory for adding a new thumbnail.
 </pre>
 

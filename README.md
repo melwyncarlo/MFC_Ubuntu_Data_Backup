@@ -6,7 +6,7 @@ A Bash based Application to Backup Folders (and compress them, optionally) onto 
 <pre>
 • Download the archived file 'mfcubuntudatabackup.tar' into the 'Downloads' directory of your system.
 • Open a terminal by pressing : Control + Alt + T<br>  the following keys
-• Type the following          : sudo cd Downloads && tar -xvf mfcubuntudatabackup.tar && 
+• Type the following          : <code>sudo</code> cd Downloads && tar -xvf mfcubuntudatabackup.tar && 
                                 cd mfcubuntudatabackup && ./install.sh
 
 Note: Enter the system password where requested. This is to allow access to the thumbnail (icons) directory<br>for adding a new thumbnail.

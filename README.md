@@ -9,7 +9,7 @@ Download the archived file 'mfcubuntudatabackup.tar' into the 'Downloads' direct
 Open a terminal by pressing the following keys : Control + Alt + T
 
 Type the following :
-<code>sudo</code> cd Downloads && tar -xvf mfcubuntudatabackup.tar && cd mfcubuntudatabackup && ./install.sh
+<code>sudo</code> cd Downloads && tar -xvf mfcubuntudatabackup.tar && cd mfcubuntudatabackup_container && ./install.sh
 
 
 NOTE :  Enter the system password when requested. This is to allow access to the 

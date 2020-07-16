@@ -19,8 +19,10 @@ NOTE :  Enter the system password when requested. This is to allow access to the
 <br><br>
 ### To uninstall :
 <pre>
-Open a terminal by pressing the following keys : Control + Alt + T <br>
-Type the following : rm -rfv mfcubuntudatabackup
+Open a terminal by pressing the following keys : Control + Alt + T
+
+Type the following :
+rm -rfv mfcubuntudatabackup && sudo rm -f /usr/share/applications/mfcdb.desktop && sudo rm -f /usr/share/applications/mfcdbl.desktop
 </pre>
 
 <br><br>

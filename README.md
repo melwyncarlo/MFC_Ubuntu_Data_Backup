@@ -11,6 +11,7 @@ Open a terminal by pressing the following keys : Control + Alt + T
 Type the following :
 <code>sudo</code> cd Downloads && tar -xvf mfcubuntudatabackup.tar && cd mfcubuntudatabackup && ./install.sh
 
+
 NOTE :  Enter the system password where requested. This is to allow access to the 
         thumbnail (icons) directory for adding a new thumbnail.
 </pre>
@@ -18,8 +19,8 @@ NOTE :  Enter the system password where requested. This is to allow access to th
 <br><br>
 ### To uninstall :
 <pre>
-Open a terminal by pressing : Control + Alt + T <br>  the following keys
-Type the following          : rm -rfv mfcubuntudatabackup
+Open a terminal by pressing the following keys : Control + Alt + T <br>
+Type the following : rm -rfv mfcubuntudatabackup
 </pre>
 
 <br><br>

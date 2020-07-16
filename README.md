@@ -28,3 +28,11 @@ Type the following : rm -rfv mfcubuntudatabackup
 
 1.  The Original Version  :  `./databackup.sh`
 2.  The Lite Version      :  `./databackuplitestart.sh`
+
+<br><br>
+### For any other queries :
+
+<ins>Email me on :</ins>
+- _Github_
+- _carlo.melwyn@outlook.com_
+

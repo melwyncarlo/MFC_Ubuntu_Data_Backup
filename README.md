@@ -2,6 +2,14 @@
 A Bash based Application to Backup Folders (and compress them, optionally) onto an external media drive.
 
 <br><br>
+### Important Tip
+<pre>
+The first backup is always going to be tedious and time-consuming.
+The subsequent backups, however, will be quicker.
+This is because the backups take place incrementally.
+</pre>
+
+<br><br>
 ### To install :
 <pre>
 Download the archived file 'mfcubuntudatabackup.tar' into the 'Downloads' directory of your system.
@@ -90,14 +98,6 @@ MFC_UBackup
 /*****										*****/
 /*****										*****/
 /************************************************************************************/
-</pre>
-
-<br><br>
-### Important Tip
-<pre>
-The first backup is always going to be tedious and time-consuming.
-The subsequent backups, however, will be quicker.
-This is because the backups take place incrementally.
 </pre>
 
 <br><br>

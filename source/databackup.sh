@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
+export readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
 
 exec 2> "$MFC_DIR/data/db.tmp"

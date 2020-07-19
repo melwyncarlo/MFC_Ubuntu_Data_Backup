@@ -3,7 +3,7 @@
 
 
 readonly MFC_SPINNER="/-\|"
-readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
+MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
 
 i=1
@@ -26,7 +26,7 @@ echo "$dblitemessage1" > "$MFC_DIR/data/dblitemsg"
 echo -ne "\033]0;MFC Ubuntu Backup\007"
 
 
-resize -s 6 35
+resize -s 6 40
 
 clear
 clear

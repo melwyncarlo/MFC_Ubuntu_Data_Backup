@@ -396,7 +396,7 @@ function_transfer_processing()
 						fi
 						break
 					elif [[ "${tmpStr01^^}" == *"(ALL OK)"* && "$compressedmode" == "1" ]] || \
-					[[ "$tmpStr03" != "" && "$compressedmode" != "1" ]]; then
+					[[ "${tmpStr01^^}" == *"SPEEDUP IS"* && "$compressedmode" != "1" ]]; then
 						echo "100" > "$numoutputFileName"
 						echo "Completed" > "$textoutputFileName"
 						procsuccess=1
@@ -647,7 +647,7 @@ function_compressed_transfer()
 
 	exec 1> "$MFC_DIR/data/db.tmp" 2>&1
 
-	compresslevel=`cat "$MFC_DIR/data/dbcompresslevel"`
+	compresslevel=`head -1 "$MFC_DIR/data/dbcompresslevel"`
 	tmpStr01="$compresslevel"
 	function_extract_num "$tmpStr01" compresslevel
 	if [ ${#compresslevel} -eq 0 -o $compresslevel -gt 5 ]; then

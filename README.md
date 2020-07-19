@@ -93,6 +93,14 @@ MFC_UBackup
 </pre>
 
 <br><br>
+### Important Tip
+<pre>
+The first backup is always going to be tedious and time-consuming.
+The subsequent backups, however, will be quicker.
+This is because the backups take place incrementally.
+</pre>
+
+<br><br>
 ### For any other queries :
 
 <ins>Email me on :</ins>

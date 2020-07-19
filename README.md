@@ -35,7 +35,7 @@ sudo rm -fv /usr/share/applications/mfcdb.desktop && sudo rm -fv /usr/share/appl
 2.  The Lite Version      :  `./databackuplitestart.sh`
 
 <br><br>
-### ~/Desktop/MFC-Ubuntu-Backup-Userbase/MFC-DB-Lite-Arguments File Input Manual
+### Manual for inputting data into File : ~/Desktop/MFC-Ubuntu-Backup-Userbase/MFC-DB-Lite-Arguments
 <pre>
 MFC_UBackup
 1
@@ -71,7 +71,7 @@ MFC_UBackup
 /*****										*****/
 /*****										*****/
 /************************************************************************************/
-</per>
+</pre>
 
 <br><br>
 ### For any other queries :

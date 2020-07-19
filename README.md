@@ -22,7 +22,7 @@ NOTE :  Enter the system password when requested. This is to allow access to the
 Open a terminal by pressing the following keys : Control + Alt + T
 
 Type the following :
-rm -rfv mfcubuntudatabackup
+rm -rfv "/home/`whoami`/mfcubuntudatabackup" && rm -rfv "/home/`whoami`/Desktop/MFC-Ubuntu-Backup-Userbase"
 
 Then, type the following :
 sudo rm -f /usr/share/applications/mfcdb.desktop && sudo rm -f /usr/share/applications/mfcdbl.desktop

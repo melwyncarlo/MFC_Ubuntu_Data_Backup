@@ -25,7 +25,7 @@ Type the following :
 rm -rfv "/home/`whoami`/mfcubuntudatabackup" && rm -rfv "/home/`whoami`/Desktop/MFC-Ubuntu-Backup-Userbase"
 
 Then, type the following :
-sudo rm -f /usr/share/applications/mfcdb.desktop && sudo rm -f /usr/share/applications/mfcdbl.desktop
+sudo rm -fv /usr/share/applications/mfcdb.desktop && sudo rm -fv /usr/share/applications/mfcdbl.desktop
 </pre>
 
 <br><br>

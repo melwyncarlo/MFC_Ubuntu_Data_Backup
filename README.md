@@ -35,7 +35,7 @@ sudo rm -fv /usr/share/applications/mfcdb.desktop && sudo rm -fv /usr/share/appl
 2.  The Lite Version      :  `./databackuplitestart.sh`
 
 <br><br>
-### Manual for inputting data into File : ~/Desktop/MFC-Ubuntu-Backup-Userbase/MFC-DB-Lite-Arguments
+### Manual for inputting data into File : ~/Desktop/MFC-Ubuntu-Backup-Userbase/App-Parameters/MFC-DB-Lite-Arguments
 <pre>
 MFC_UBackup
 1
@@ -68,6 +68,25 @@ MFC_UBackup
 /*****		(SOME FILES/FOLDERS WILL BE BACKED UP MORE THAN ONCE)		*****/
 /*****		TYPE '2' TO EXIT THE APPLICATION, OR				*****/
 /*****		TYPE '3' TO DISCARD THE CHOSEN DIRECTORY ALTOGETHER.		*****/
+/*****										*****/
+/*****										*****/
+/************************************************************************************/
+</pre>
+
+<br><br>
+### Manual for inputting data into File : ~/Desktop/MFC-Ubuntu-Backup-Userbase/App-Parameters/List-of-Backup-Paths
+<pre>
+/home/[username]/Downloads/Random-Folder-1
+/home/[username]/Downloads/Random-Folder-2
+
+/************************************************************************************/
+/*****										*****/
+/*****										*****/
+/*****		ADD ABSOLUTE DIRECTORY PATHS ONLY.				*****/
+/*****										*****/
+/*****		START TYPING AT THE TOP, FROM THE FIRST LINE OF THIS FILE.	*****/
+/*****										*****/
+/*****		TYPE ONLY ONE PATH PER LINE.					*****/
 /*****										*****/
 /*****										*****/
 /************************************************************************************/

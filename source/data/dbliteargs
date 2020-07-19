@@ -1,0 +1,39 @@
+MFC_UBackup
+1
+0
+0
+
+
+
+/************************************************************************************/
+/*****										*****/
+/*****										*****/
+/*****		ONLY EDIT THE "FIRST FOUR LINES" OF THIS FILE.			*****/
+/*****										*****/
+/*****		FOR THE FIRST LINE :						*****/
+/*****		TYPE ONLY THE NAME OF THE EXTERNAL MEDIA DEVICE			*****/
+/*****		TO WHICH YOU WISH TO BACKUP. (NOT FILE PATH)			*****/
+/*****										*****/
+/*****		FOR THE SECOND LINE :						*****/
+/*****		TYPE '1' FOR SIMPLE TRANSFER, OR				*****/
+/*****		TYPE '2' FOR COMPRESSED TRANSFER.				*****/
+/*****										*****/
+/*****		FOR THE THIRD LINE, IF SOME FILES/FOLDERS REQUIRE		*****/
+/*****		ROOT ACCESS TO ACCESS THEM, THEN :				*****/
+/*****		TYPE '1' TO PROCEED ANYWAY, OR					*****/
+/*****		(SOME FILES/FOLDERS WILL NOT BE BACKED UP)			*****/
+/*****		TYPE '2' TO EXIT THE APPLICATION, OR				*****/
+/*****		TYPE '3' TO DISCARD THE CHOSEN DIRECTORY ALTOGETHER.		*****/
+/*****										*****/
+/*****		FOR THE FOURTH LINE, IF SOME FILES/FOLDERS ARE THE		*****/
+/*****		SAME, OR IF THEY OVERLAP, THEN :				*****/
+/*****		TYPE '1' TO PROCEED ANYWAY, OR					*****/
+/*****		(SOME FILES/FOLDERS WILL BE BACKED UP MORE THAN ONCE)		*****/
+/*****		TYPE '2' TO EXIT THE APPLICATION, OR				*****/
+/*****		TYPE '3' TO DISCARD THE CHOSEN DIRECTORY ALTOGETHER.		*****/
+/*****										*****/
+/*****										*****/
+/************************************************************************************/
+
+
+

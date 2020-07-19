@@ -3,6 +3,7 @@
 
 
 readonly MFC_SPINNER="/-\|"
+readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
 
 i=1
@@ -14,9 +15,9 @@ dblitemessage1=""
 dblitemessage2=" Preparing for Backup ...  "
 
 
-echo "0" > "data/dbliteprocessdone"
-echo "0" > "data/dblitemsgmd5"
-echo "$dblitemessage1" > "data/dblitemsg"
+echo "0" > "$MFC_DIR/data/dbliteprocessdone"
+echo "0" > "$MFC_DIR/data/dblitemsgmd5"
+echo "$dblitemessage1" > "$MFC_DIR/data/dblitemsg"
 
 
 
@@ -33,7 +34,7 @@ echo
 echo -n " Please wait ...  "
 
 
-source databackuplite.sh &
+source "$MFC_DIR/databackuplite.sh" &
 while [[ "$procstat" == "0" ]]
 do
 	if [[ "$dblitemd52" != "$dblitemd51" ]] && [[ "$dblitemessage2" != "" ]]; then
@@ -47,9 +48,9 @@ do
 	fi
 	printf "\b${MFC_SPINNER:i++%${#MFC_SPINNER}:1}"
 	sleep 0.1
-	procstat=`cat "data/dbliteprocessdone"`
-	dblitemd52=`cat "data/dblitemsgmd5"`
-	dblitemessage2=`cat "data/dblitemsg"`
+	procstat=`cat "$MFC_DIR/data/dbliteprocessdone"`
+	dblitemd52=`cat "$MFC_DIR/data/dblitemsgmd5"`
+	dblitemessage2=`cat "$MFC_DIR/data/dblitemsg"`
 	if [ ${#dblitemessage2} -gt 0 ]; then
 		dblitemessage2=$(echo -e $dblitemessage2 | tr '#' ' ')
 	fi

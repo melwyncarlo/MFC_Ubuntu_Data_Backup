@@ -1,11 +1,13 @@
 #!/bin/bash
 
 
+readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
-exec 2> "data/db.tmp"
+
+exec 2> "$MFC_DIR/data/db.tmp"
 
 
-source src/dbfunctions.sh
+source "$MFC_DIR/src/dbfunctions.sh"
 
 
 pathsArray=()
@@ -14,14 +16,14 @@ tmpArray1=()
 tmpArray2=()
 
 
-readonly DEFAULT_DATFILEPATH="data/paths_list.dat"
-readonly MFC_DBLITE_ARGUMENTS_FILE="data/dbliteargs"
-readonly DB_LITE_LOG="data/dblite.log"
+readonly DEFAULT_DATFILEPATH="$MFC_DIR/data/paths_list.dat"
+readonly MFC_DBLITE_ARGUMENTS_FILE="$MFC_DIR/data/dbliteargs"
+readonly DB_LITE_LOG="$MFC_DIR/data/dblite.log"
 readonly MFC_DBLITE_ARGUMENTS_NUM="4"
 
 
 echo -n "" > $DB_LITE_LOG
-echo "#Preparing for Backup#...##" > "data/dblitemsg"
+echo "#Preparing for Backup#...##" > "$MFC_DIR/data/dblitemsg"
 
 
 if [ ! -f "$DEFAULT_DATFILEPATH" ]; then
@@ -44,13 +46,13 @@ function_checkdirroot()
 
 	for elem1 in ${!pathsArray[@]}
 	do
-		echo "0" > "data/dblitetempfile"
-		tmpStr01=`du -bsh "${pathsArray[$elem1]}" 2> "data/dblitetempfile"`
+		echo "0" > "$MFC_DIR/data/dblitetempfile"
+		tmpStr01=`du -bsh "${pathsArray[$elem1]}" 2> "$MFC_DIR/data/dblitetempfile"`
 		tmpStr02=""
 		while read -rs line
 		do
 			tmpStr02+="$line"
-		done < "data/dblitetempfile"
+		done < "$MFC_DIR/data/dblitetempfile"
 		if [[ "$tmpStr02" != "0" ]] && [[ "$tmpStr02" != "" ]]; then
 			problemfound=1
 			if [[ "${argsArray[2]}" == "0" ]]; then
@@ -228,29 +230,6 @@ pathselem=""
 errorFound=0
 argsArray=()
 pathsArray=()
-
-
-
-# TO BE DISPLAYED  -  START
-
-#echo -ne "\033]0;MFC Ubuntu Backup\007"
-
-
-#resize -s 5 30
-
-
-#clear
-#clear
-#echo
-#echo " Please wait."
-#echo -n " Backup in Progress ...  "
-#while :
-#do
-#	printf "\b${MFC_SPINNER:i++%${#MFC_SPINNER}:1}"
-#	sleep 0.1
-#done
-
-# TO BE DISPLAYED  -  END
 
 
 
@@ -495,7 +474,7 @@ function_checkexterndevice "/media/`whoami`/${argsArray[0]}" "1"
 function_begin_transfer "/media/`whoami`/${argsArray[0]}" "1" "${argsArray[1]}" "${pathsArray[@]}"
 
 
-exec 2> "data/db.tmp"
+exec 2> "$MFC_DIR/data/db.tmp"
 
 
 
@@ -506,7 +485,7 @@ tmpStr2+=" `date`"
 tmpStr2+="\n--------------------------------------------------------------\n\n\n"
 echo -e "$tmpStr2" >> $DB_LITE_LOG
 sleep 1.5
-echo "1" > "data/dbliteprocessdone"
+echo "1" > "$MFC_DIR/data/dbliteprocessdone"
 
 
 

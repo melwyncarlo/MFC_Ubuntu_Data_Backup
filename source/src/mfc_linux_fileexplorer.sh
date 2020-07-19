@@ -1,8 +1,10 @@
 #!/bin/bash
 
 
+readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
-echo "0" > "src/data/mfc_fileexplorer_processdone.txt"
+
+echo "0" > "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"
 
 
 readonly MFC_SIMPLE_MODE_MIN_W=80
@@ -27,7 +29,7 @@ declare -ir MFC_COMPLETE_MODE_H=$3
 declare -ir MFC_COMPLETE_MODE_W=$4
 
 
-source src/headerdesign.sh
+source "$MFC_DIR/src/headerdesign.sh"
 
 
 mfc_fileexplorer_filename=()
@@ -117,17 +119,17 @@ private_func_getfilesize()
 	local -n returnStr=$3
 	returnStr=""
 
-	echo "0" > "src/data/finderr1.txt"
+	echo "0" > "$MFC_DIR/src/data/finderr1.txt"
 	if [ $compmode -eq -1 ]; then
-		tmpStr1=`du -bs "$filepath" 2> src/data/finderr1.txt`
+		tmpStr1=`du -bs "$filepath" 2> "$MFC_DIR/src/data/finderr1.txt"`
 	else
-		tmpStr1=`du -bsh "$filepath" 2> src/data/finderr1.txt`
+		tmpStr1=`du -bsh "$filepath" 2> "$MFC_DIR/src/data/finderr1.txt"`
 	fi
 	tmpStr2=""
 	while read -r -s line
 	do
 		tmpStr2+="$line"
-	done < "src/data/finderr1.txt"
+	done < "$MFC_DIR/src/data/finderr1.txt"
 	if [[ "$tmpStr2" != "0" ]] && [[ "$tmpStr2" != "" ]]; then
 		if [ $compmode -eq -1 ]; then
 			tmpStr1="0"
@@ -178,13 +180,13 @@ private_func_filedatecmd()
 	local -n returnStr=$3
 	returnStr=""
 
-	echo "0" > "src/data/finderr1.txt"
-	returnStr=`date +"$dateform" -r "$filepath" 2> src/data/finderr1.txt`
+	echo "0" > "$MFC_DIR/src/data/finderr1.txt"
+	returnStr=`date +"$dateform" -r "$filepath" 2> "$MFC_DIR/src/data/finderr1.txt"`
 	tmpStr0=""
 	while read -r -s line
 	do
 		tmpStr0+="$line"
-	done < "src/data/finderr1.txt"
+	done < "$MFC_DIR/src/data/finderr1.txt"
 	if [[ "$tmpStr0" != "0" ]] && [[ "$tmpStr0" != "" ]]; then
 		returnStr=""
 	fi
@@ -360,15 +362,15 @@ private_func_sortalpha()
 	local inputArr=("${@}")
 
 	if [ ${#inputArr[@]} -gt 0 ]; then
-		echo -n "" > "src/data/tempfile.txt"
+		echo -n "" > "$MFC_DIR/src/data/tempfile.txt"
 		for tmpElem in "${inputArr[@]}"
 		do
-			echo "$tmpElem" >> "src/data/tempfile.txt"
+			echo "$tmpElem" >> "$MFC_DIR/src/data/tempfile.txt"
 		done
 		if [[ "$mode" == "2" ]]; then
-			returnArr=(`sort -r "src/data/tempfile.txt"`)
+			returnArr=(`sort -r "$MFC_DIR/src/data/tempfile.txt"`)
 		else
-			returnArr=(`sort "src/data/tempfile.txt"`)
+			returnArr=(`sort "$MFC_DIR/src/data/tempfile.txt"`)
 		fi
 	fi
 }
@@ -429,7 +431,7 @@ private_func_sortfiletype()
 	local inputArr=("${@}")
 
 	if [ ${#inputArr[@]} -gt 0 ]; then
-		echo -n "" > "src/data/tempfile.txt"
+		echo -n "" > "$MFC_DIR/src/data/tempfile.txt"
 		for tmpElem in "${!inputArr[@]}"
 		do
 			tmpStr1=`file "$dirnme${inputArr[$tmpElem]}" --mime-type`
@@ -438,12 +440,12 @@ private_func_sortfiletype()
 			if [[ "$tmpStr1" == *"directory"* ]]; then
 				tmpStr1="Directory$tmpStr2"
 			fi
-			echo "$tmpStr1$tmpStr2" >> "src/data/tempfile.txt"
+			echo "$tmpStr1$tmpStr2" >> "$MFC_DIR/src/data/tempfile.txt"
 		done
 		if [[ "$mode" == "2" ]]; then
-			tmpArr=(`sort -r "src/data/tempfile.txt"`)
+			tmpArr=(`sort -r "$MFC_DIR/src/data/tempfile.txt"`)
 		else
-			tmpArr=(`sort "src/data/tempfile.txt"`)
+			tmpArr=(`sort "$MFC_DIR/src/data/tempfile.txt"`)
 		fi
 		for tmpElem in "${tmpArr[@]}"
 		do
@@ -475,7 +477,7 @@ private_func_sortfilesize()
 	if [ ${#inputArr[@]} -gt 0 ]; then
 		private_func_sortfiledir tmpArr "$dirnme" "${inputArr[@]}"
 		inputArr=("${tmpArr[@]}")
-		echo -n "" > "src/data/tempfile.txt"
+		echo -n "" > "$MFC_DIR/src/data/tempfile.txt"
 		for tmpElem in "${!inputArr[@]}"
 		do
 			if [ -d "$dirnme${inputArr[tmpElem]}" ]; then
@@ -484,12 +486,12 @@ private_func_sortfilesize()
 				private_func_getfilesize "$dirnme${inputArr[$tmpElem]}" "-1" tmpStr01
 			fi
 			printf -v tmpStr02 "%05d" $tmpElem
-			echo "$tmpStr01-$tmpStr02" >> "src/data/tempfile.txt"
+			echo "$tmpStr01-$tmpStr02" >> "$MFC_DIR/src/data/tempfile.txt"
 		done
 		if [[ "$mode" == "2" ]]; then
-			tmpArr=(`sort -nr "src/data/tempfile.txt"`)
+			tmpArr=(`sort -nr "$MFC_DIR/src/data/tempfile.txt"`)
 		else
-			tmpArr=(`sort -n "src/data/tempfile.txt"`)
+			tmpArr=(`sort -n "$MFC_DIR/src/data/tempfile.txt"`)
 		fi
 		for tmpElem in "${tmpArr[@]}"
 		do
@@ -520,7 +522,7 @@ private_func_sortfiletime()
 	if [ ${#inputArr[@]} -gt 0 ]; then
 		private_func_sortfiledir tmpArr "$dirnme" "${inputArr[@]}"
 		inputArr=("${tmpArr[@]}")
-		echo -n "" > "src/data/tempfile.txt"
+		echo -n "" > "$MFC_DIR/src/data/tempfile.txt"
 		for tmpElem in "${!inputArr[@]}"
 		do
 			if [ -d "$dirnme${inputArr[tmpElem]}" ]; then
@@ -532,12 +534,12 @@ private_func_sortfiletime()
 				fi
 			fi
 			printf -v tmpStr2 "%05d" $tmpElem
-			echo "$tmpStr1-$tmpStr2" >> "src/data/tempfile.txt"
+			echo "$tmpStr1-$tmpStr2" >> "$MFC_DIR/src/data/tempfile.txt"
 		done
 		if [[ "$mode" == "2" ]]; then
-			tmpArr=(`sort -nr "src/data/tempfile.txt"`)
+			tmpArr=(`sort -nr "$MFC_DIR/src/data/tempfile.txt"`)
 		else
-			tmpArr=(`sort -n "src/data/tempfile.txt"`)
+			tmpArr=(`sort -n "$MFC_DIR/src/data/tempfile.txt"`)
 		fi
 		for tmpElem in "${tmpArr[@]}"
 		do
@@ -810,13 +812,13 @@ private_func_displaywait()
 # Parameter 10 - Root Access Mode
 mfc_fileexplore()
 {
-	echo "0" > "src/data/mfc_fileexplorer_processdone.txt"
+	echo "0" > "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"
 	mfc_fileexplorer_filename=()
 	mfc_fileexplorer_filepath=()
 	mfc_fileexplorer_dirpath=()
-	echo -n "" > "src/data/mfc_fileexplorer_filename.txt"
-	echo -n "" > "src/data/mfc_fileexplorer_filepath.txt"
-	echo -n "" > "src/data/mfc_fileexplorer_dirpath.txt"
+	echo -n "" > "$MFC_DIR/src/data/mfc_fileexplorer_filename.txt"
+	echo -n "" > "$MFC_DIR/src/data/mfc_fileexplorer_filepath.txt"
+	echo -n "" > "$MFC_DIR/src/data/mfc_fileexplorer_dirpath.txt"
 
 	local tmpArr=()
 
@@ -1188,13 +1190,13 @@ mfc_fileexplore()
 							done
 							private_func_spaces "2" spacesStr
 							if [ -d "$curdir/$dirnme/$tmpStr1" ]; then	# DIRECTORY Clicked
-								echo "0" > "src/data/findperm.txt"
-								tmpStr3=`ls -ld "$curdir/$dirnme/$tmpStr1" 2> "src/data/findperm.txt"`
+								echo "0" > "$MFC_DIR/src/data/findperm.txt"
+								tmpStr3=`ls -ld "$curdir/$dirnme/$tmpStr1" 2> "$MFC_DIR/src/data/findperm.txt"`
 								tmpStr4=""
 								while read -r -s line
 								do
 									tmpStr4+="$line"
-								done < "src/data/findperm.txt"
+								done < "$MFC_DIR/src/data/findperm.txt"
 								if [[ "$tmpStr4" == "0" ]] || [[ "$tmpStr4" == "" ]]; then
 									if [ $rootaccessmode -eq 1 ] && [[ "$tmpStr3" == *"root"* ]]; then
 										curdir="$curdir/$dirnme/$tmpStr1"
@@ -1215,13 +1217,13 @@ mfc_fileexplore()
 
 								tmpStr2="\n$spacesStr""Permissions have been denied to access the "
 								tmpStr2+="selected\n$spacesStr""directory ! 'Root' privilege is required."
-								echo "0" > "src/data/findperm.txt"
-								tmpStr3=`ls -ld "$curdir/$dirnme/$tmpStr1" 2> "src/data/findperm.txt"`
+								echo "0" > "$MFC_DIR/src/data/findperm.txt"
+								tmpStr3=`ls -ld "$curdir/$dirnme/$tmpStr1" 2> "$MFC_DIR/src/data/findperm.txt"`
 								tmpStr4=""
 								while read -r -s line
 								do
 									tmpStr4+="$line"
-								done < "src/data/findperm.txt"
+								done < "$MFC_DIR/src/data/findperm.txt"
 								if [[ "$tmpStr4" == "0" ]] || [[ "$tmpStr4" == "" ]]; then
 									if [ $rootaccessmode -eq 0 ] && [[ "$tmpStr3" == *"root"* ]]; then
 										whiptail --title "ERROR" --msgbox "$tmpStr2" 10 65
@@ -1263,14 +1265,14 @@ mfc_fileexplore()
 										mfc_fileexplorer_dirpath="$curdir/$dirnme"
 										tmpStr3="/"
 									fi
-									echo "$mfc_fileexplorer_dirpath" > "src/data/mfc_fileexplorer_dirpath.txt"
+									echo "$mfc_fileexplorer_dirpath" > "$MFC_DIR/src/data/mfc_fileexplorer_dirpath.txt"
 									mfc_fileexplorer_filename+=("$tmpStr1")
-									echo "$tmpStr1" > "src/data/mfc_fileexplorer_filename.txt"
+									echo "$tmpStr1" > "$MFC_DIR/src/data/mfc_fileexplorer_filename.txt"
 									tmpStr4="$mfc_fileexplorer_dirpath$tmpStr3$tmpStr1"
 									mfc_fileexplorer_filepath+=("$tmpStr4")
-									echo "$tmpStr4" > "src/data/mfc_fileexplorer_filepath.txt"
+									echo "$tmpStr4" > "$MFC_DIR/src/data/mfc_fileexplorer_filepath.txt"
 									mfc_fileexplorer_exit=1
-									echo "1" > "src/data/mfc_fileexplorer_processdone.txt"
+									echo "1" > "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"
 									loopPos=0
 								fi
 
@@ -1289,15 +1291,15 @@ mfc_fileexplore()
 									private_func_spaces "15" tmpStr4
 									tmpStr2+="\n$spacesStr""$tmpStr4:$spacesStr${tmpStr3:0:40}"
 								fi
-								echo "0" > "src/data/finderr1.txt"	# For Files
-								echo "0" > "src/data/finderr2.txt"	# For Directories
-								tmpStr4=`find "$curdir/$dirnme" -type f 2> src/data/finderr1.txt | wc -l`
-								tmpStr5=`find "$curdir/$dirnme" -type d 2> src/data/finderr2.txt | wc -l`
+								echo "0" > "$MFC_DIR/src/data/finderr1.txt"	# For Files
+								echo "0" > "$MFC_DIR/src/data/finderr2.txt"	# For Directories
+								tmpStr4=`find "$curdir/$dirnme" -type f 2> "$MFC_DIR/src/data/finderr1.txt" | wc -l`
+								tmpStr5=`find "$curdir/$dirnme" -type d 2> "$MFC_DIR/src/data/finderr2.txt" | wc -l`
 								tmpStr3=""
 								while read -r -s line
 								do
 									tmpStr3+="$line"
-								done < "src/data/finderr1.txt"
+								done < "$MFC_DIR/src/data/finderr1.txt"
 								if [[ "$tmpStr3" == "0" ]] || [[ "$tmpStr3" == "" ]]; then
 									tmpStr2+="\n\n$spacesStr""There are exactly :$spacesStr$tmpStr4 files"
 								else
@@ -1307,14 +1309,14 @@ mfc_fileexplore()
 								while read -r -s line
 								do
 									tmpStr3+="$line"
-								done < "src/data/finderr2.txt"
+								done < "$MFC_DIR/src/data/finderr2.txt"
 								if [[ "$tmpStr3" == "0" ]] || [[ "$tmpStr3" == "" ]]; then
 									tmpStr2+="\n$spacesStr""There are exactly :$spacesStr$tmpStr5 directories"
 								else
 									tmpStr2+="\n$spacesStr""There are about   :$spacesStr$tmpStr5 directories"
 								fi
-								echo "0" > "src/data/finderr1.txt"
-								echo "0" > "src/data/finderr2.txt"
+								echo "0" > "$MFC_DIR/src/data/finderr1.txt"
+								echo "0" > "$MFC_DIR/src/data/finderr2.txt"
 								tmpStr2+="\n\n$spacesStr""Do you wish to "$feactext" this folder ?\n"
 								if (whiptail --title "QUERY" --yesno "$tmpStr2" --yes-button "No" \
 								--no-button "Yes" 16 65); then
@@ -1329,14 +1331,14 @@ mfc_fileexplore()
 										tmpStr1="$dirnme"
 										tmpStr3="/"
 									fi
-									echo "$mfc_fileexplorer_dirpath" > "src/data/mfc_fileexplorer_dirpath.txt"
+									echo "$mfc_fileexplorer_dirpath" > "$MFC_DIR/src/data/mfc_fileexplorer_dirpath.txt"
 									mfc_fileexplorer_filename+=("$tmpStr1")
-									echo "$tmpStr1" > "src/data/mfc_fileexplorer_filename.txt"
+									echo "$tmpStr1" > "$MFC_DIR/src/data/mfc_fileexplorer_filename.txt"
 									tmpStr4="$mfc_fileexplorer_dirpath$tmpStr3$tmpStr1"
 									mfc_fileexplorer_filepath+=("$tmpStr4")
-									echo "$tmpStr4" > "src/data/mfc_fileexplorer_filepath.txt"
+									echo "$tmpStr4" > "$MFC_DIR/src/data/mfc_fileexplorer_filepath.txt"
 									mfc_fileexplorer_exit=1
-									echo "1" > "src/data/mfc_fileexplorer_processdone.txt"
+									echo "1" > "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"
 									loopPos=0
 								fi
 							else
@@ -1369,13 +1371,13 @@ mfc_fileexplore()
 					do
 						i=1
 						tmpStr1="${tmpArr[$tmpElem]}"
-						echo "0" > "src/data/findperm.txt"
-						tmpStr3=`ls -ld "$curdir/$dirnme/$tmpStr1" 2> "src/data/findperm.txt"`
+						echo "0" > "$MFC_DIR/src/data/findperm.txt"
+						tmpStr3=`ls -ld "$curdir/$dirnme/$tmpStr1" 2> "$MFC_DIR/src/data/findperm.txt"`
 						tmpStr4=""
 						while read -rs line
 						do
 							tmpStr4+="$line"
-						done < "src/data/findperm.txt"
+						done < "$MFC_DIR/src/data/findperm.txt"
 						if [[ "$tmpStr4" == "0" ]] || [[ "$tmpStr4" == "" ]]; then
 							if [ $rootaccessmode -eq 0 ] && [[ "$tmpStr3" == *"root"* ]]; then
 								i=0
@@ -1418,17 +1420,17 @@ mfc_fileexplore()
 								mfc_fileexplorer_dirpath="$curdir/$dirnme"
 								tmpStr3="/"
 							fi
-							echo "$mfc_fileexplorer_dirpath" > "src/data/mfc_fileexplorer_dirpath.txt"
+							echo "$mfc_fileexplorer_dirpath" > "$MFC_DIR/src/data/mfc_fileexplorer_dirpath.txt"
 							for tmpElem in "${tmpArr[@]}"
 							do
 								mfc_fileexplorer_filename+=("$tmpElem")
 								tmpStr4="$mfc_fileexplorer_dirpath$tmpStr3$tmpElem"
 								mfc_fileexplorer_filepath+=("$tmpStr4")
-								echo "$tmpElem" >> "src/data/mfc_fileexplorer_filename.txt"
-								echo "$tmpStr4" >> "src/data/mfc_fileexplorer_filepath.txt"
+								echo "$tmpElem" >> "$MFC_DIR/src/data/mfc_fileexplorer_filename.txt"
+								echo "$tmpStr4" >> "$MFC_DIR/src/data/mfc_fileexplorer_filepath.txt"
 							done
 							mfc_fileexplorer_exit=1
-							echo "1" > "src/data/mfc_fileexplorer_processdone.txt"
+							echo "1" > "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"
 							loopPos=0
 
 						fi
@@ -1457,7 +1459,7 @@ mfc_fileexplore()
 
 	if [ $mfc_fileexplorer_exit -ne 1 ]; then
 		mfc_fileexplorer_exit=-1
-		echo "-1" > "src/data/mfc_fileexplorer_processdone.txt"
+		echo "-1" > "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"
 	fi
 
 	exit 0

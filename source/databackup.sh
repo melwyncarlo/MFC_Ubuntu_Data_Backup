@@ -1,12 +1,14 @@
 #!/bin/bash
 
 
+readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
-exec 2> "data/db.tmp"
+
+exec 2> "$MFC_DIR/data/db.tmp"
 
 
-source src/headerdesign.sh
-source src/dbfunctions.sh
+source "$MFC_DIR/src/headerdesign.sh"
+source "$MFC_DIR/src/dbfunctions.sh"
 
 
 sourcesStorage=()
@@ -16,8 +18,8 @@ tmpArray2=()
 
 
 export readonly START_DIRECTORY="/home/`whoami`/Desktop"
-readonly DEFAULT_DATFILEPATH="data/paths_list.dat"
-readonly DB_TEMP_FILE="data/dbtempfile"
+readonly DEFAULT_DATFILEPATH="$MFC_DIR/data/paths_list.dat"
+readonly DB_TEMP_FILE="$MFC_DIR/data/dbtempfile"
 
 
 if [ ! -f "$DEFAULT_DATFILEPATH" ]; then
@@ -183,20 +185,20 @@ function_explorer()
 
 	if [ $mode -eq 1 ]; then
 	gnome-terminal --title="MFC Linux File Explorer" -- bash -c \
-	'source src/mfc_linux_fileexplorer.sh 24 80 37 150; mfc_fileexplore "$START_DIRECTORY" "0" "0" "0" "0" "0" "3" "0" "load" "0"'
+	'source "$MFC_DIR/src/mfc_linux_fileexplorer.sh" 24 80 37 150; mfc_fileexplore "$START_DIRECTORY" "0" "0" "0" "0" "0" "3" "0" "load" "0"'
 	else
 	gnome-terminal --title="MFC Linux File Explorer" -- bash -c \
-	'source src/mfc_linux_fileexplorer.sh 24 80 37 150; mfc_fileexplore "$START_DIRECTORY" "0" "0" "0" "0" "1" "3" "1" "backup" "0"'
+	'source "$MFC_DIR/src/mfc_linux_fileexplorer.sh" 24 80 37 150; mfc_fileexplore "$START_DIRECTORY" "0" "0" "0" "0" "1" "3" "1" "backup" "0"'
 	fi
 
 	while :
 	do
-		line=`head "src/data/mfc_fileexplorer_processdone.txt"`
+		line=`head "$MFC_DIR/src/data/mfc_fileexplorer_processdone.txt"`
 		if [[ "$line" == "1" ]]; then
 			while read -rs line
 			do
 				returnArr+=("$line")
-			done < "src/data/mfc_fileexplorer_filepath.txt"
+			done < "$MFC_DIR/src/data/mfc_fileexplorer_filepath.txt"
 			break
 		elif [[ "$line" == "-1" ]]; then
 			break
@@ -623,7 +625,7 @@ do
 done
 
 
-exec 2> "data/db.tmp"
+exec 2> "$MFC_DIR/data/db.tmp"
 
 function_msg
 

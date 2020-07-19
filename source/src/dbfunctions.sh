@@ -1,11 +1,13 @@
 #!/bin/bash
 
 
+readonly MFC_DIR="/home/`whoami`/mfcubuntudatabackup"
 
-source src/headerdesign.sh
+
+source "$MFC_DIR/src/headerdesign.sh"
 
 
-readonly DB_LITE_LOG="data/dblite.log"
+readonly DB_LITE_LOG="$MFC_DIR/data/dblite.log"
 
 readonly MINIMUM_FREE_DISKSPACE_ALLOCATION=$((50 * 1000000))	# 50 Megabytes
 
@@ -92,7 +94,7 @@ function_end()
 		echo -e "$tmpStr0" >> $DB_LITE_LOG
 	fi
 	sleep 2
-	echo "-1" > "data/dbliteprocessdone"
+	echo "-1" > "$MFC_DIR/data/dbliteprocessdone"
 	exit 0
 }
 
@@ -292,18 +294,18 @@ function_transfer_processing()
 	fi
 
 	if [ $litemode -eq 1 ]; then
-		logFileName="data/dblitetransfer.log"
+		logFileName="$MFC_DIR/data/dblitetransfer.log"
 		if [ $compressedmode -ne 1 ]; then
-			srcFileName="data/paths_list.dat"
+			srcFileName="$MFC_DIR/data/paths_list.dat"
 		fi
-		errorFileName="data/dblitetempfile"
-		numoutputFileName="data/dblitetransferprogress"
-		textoutputFileName="data/dblitetransfermessage"
-		attmptoutputFileName="data/dbliteattempt"
-		procsoutputFileName="data/dbliteproccorenum"
-		echo "#Backup in Progress.\n $firstmsg##" > "data/dblitemsg"
+		errorFileName="$MFC_DIR/data/dblitetempfile"
+		numoutputFileName="$MFC_DIR/data/dblitetransferprogress"
+		textoutputFileName="$MFC_DIR/data/dblitetransfermessage"
+		attmptoutputFileName="$MFC_DIR/data/dbliteattempt"
+		procsoutputFileName="$MFC_DIR/data/dbliteproccorenum"
+		echo "#Backup in Progress.\n $firstmsg##" > "$MFC_DIR/data/dblitemsg"
 		tmpStr00=`echo -n "#Backup in Progress.\n $firstmsg##" | md5sum | cut -d" " -f1`
-		echo "$tmpStr00" > "data/dblitemsgmd5"
+		echo "$tmpStr00" > "$MFC_DIR/data/dblitemsgmd5"
 		tmpStr01="\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
 		tmpStr01+="\n▮   Refer to the File 'TRANSFER LOG' for transfer    ▮"
 		tmpStr01+="\n▮   messages and errors.                             ▮"
@@ -311,25 +313,25 @@ function_transfer_processing()
 		echo -e "$tmpStr01" >> $DB_LITE_LOG
 		echo -n "$simpcompname Transfer has been now begun . . ." >> $DB_LITE_LOG
 	else
-		logFileName="data/db.log"
+		logFileName="$MFC_DIR/data/db.log"
 		if [ $compressedmode -ne 1 ]; then
-			srcFileName="data/dbpathslist"
+			srcFileName="$MFC_DIR/data/dbpathslist"
 			echo -n "" > $srcFileName
 			for tmpStr01 in ${transferpathslist[@]}
 			do
 				echo "$tmpStr01" >> $srcFileName
 			done
 		fi
-		errorFileName="data/dbtempfile"
-		numoutputFileName="data/dbtransferprogress"
-		textoutputFileName="data/dbtransfermessage"
-		attmptoutputFileName="data/dbattempt"
-		procsoutputFileName="data/dbproccorenum"
+		errorFileName="$MFC_DIR/data/dbtempfile"
+		numoutputFileName="$MFC_DIR/data/dbtransferprogress"
+		textoutputFileName="$MFC_DIR/data/dbtransfermessage"
+		attmptoutputFileName="$MFC_DIR/data/dbattempt"
+		procsoutputFileName="$MFC_DIR/data/dbproccorenum"
 	fi
 
 	sleep 1.5
 
-	echo -n "" > "data/db.tmp"
+	echo -n "" > "$MFC_DIR/data/db.tmp"
 	echo -e "\n\n" > $logFileName
 	echo -e "\n\n" > $errorFileName
 	echo -n "" > $numoutputFileName
@@ -345,7 +347,7 @@ function_transfer_processing()
 
 	while [ $procsuccess -eq 0 ]
 	do
-		exec 1> "data/db.tmp" 2>&1
+		exec 1> "$MFC_DIR/data/db.tmp" 2>&1
 
 		if [ $(($processorsnum-1)) -ne 1 ]; then
 			prockilled=0
@@ -546,9 +548,9 @@ function_transfer_processing()
 				fi
 
 			fi
-			echo "$tmpStr08" > "data/dblitemsg"
+			echo "$tmpStr08" > "$MFC_DIR/data/dblitemsg"
 			tmpStr08=`echo -n "$tmpStr08" | md5sum | cut -d" " -f1`
-			echo "$tmpStr08" > "data/dblitemsgmd5"
+			echo "$tmpStr08" > "$MFC_DIR/data/dblitemsgmd5"
 			sleep 0.1
 		done
 	else
@@ -608,14 +610,14 @@ function_simple_transfer()
 
 	function_checkexterndevice "$destpath" "$litemode"
 
-	exec 1> "data/db.tmp" 2>&1
+	exec 1> "$MFC_DIR/data/db.tmp" 2>&1
 
 	function_transfer_processing "$destpath" "0" "$litemode" "" ""
 
 	if [ $litemode -eq 1 ]; then
-		endstatus=`cat "data/dblitetransfermessage"`
+		endstatus=`cat "$MFC_DIR/data/dblitetransfermessage"`
 	else
-		endstatus=`cat "data/dbtransfermessage"`
+		endstatus=`cat "$MFC_DIR/data/dbtransfermessage"`
 	fi
 
 	if [[ "$endstatus" == "Completed" ]]; then
@@ -643,9 +645,9 @@ function_compressed_transfer()
 
 	function_checkexterndevice "$destpath" "$litemode"
 
-	exec 1> "data/db.tmp" 2>&1
+	exec 1> "$MFC_DIR/data/db.tmp" 2>&1
 
-	compresslevel=`cat "data/dbcompresslevel"`
+	compresslevel=`cat "$MFC_DIR/data/dbcompresslevel"`
 	tmpStr01="$compresslevel"
 	function_extract_num "$tmpStr01" compresslevel
 	if [ ${#compresslevel} -eq 0 -o $compresslevel -gt 5 ]; then
@@ -654,7 +656,7 @@ function_compressed_transfer()
 		compresslevel=1
 	fi
 
-	tmpStr00=`head -1 "data/dbthreadsopt"`
+	tmpStr00=`head -1 "$MFC_DIR/data/dbthreadsopt"`
 	function_extract_num "$tmpStr00" proccorenum
 	if [ ${#proccorenum} -eq 0 -o $proccorenum -lt 1 -o $proccorenum -gt `nproc` ]; then
 		proccorenum=`nproc`
@@ -665,9 +667,9 @@ function_compressed_transfer()
 		"${transferpathslist[@]}"
 
 	if [ $litemode -eq 1 ]; then
-		endstatus=`cat "data/dblitetransfermessage"`
+		endstatus=`cat "$MFC_DIR/data/dblitetransfermessage"`
 	else
-		endstatus=`cat "data/dbtransfermessage"`
+		endstatus=`cat "$MFC_DIR/data/dbtransfermessage"`
 	fi
 
 	if [[ "$endstatus" == "Completed" ]]; then
